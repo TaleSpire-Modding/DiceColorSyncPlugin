@@ -10,7 +10,7 @@ namespace DiceCallbackPlugin.Patches
         {
             if (BoardSessionManager.PhotonIdToClientGuid.TryGetValue(info.sender.ID, out var clientId))
                 if (TempClientColorManager.TryGetColor(clientId, out var color))
-                    ___dieRenderer.material.SetColor("_Color", Color.red);
+                    ___dieRenderer.material.SetColor("_Color", color);
         }
     }
 
