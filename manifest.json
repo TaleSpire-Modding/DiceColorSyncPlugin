@@ -5,6 +5,6 @@
     "description": "Syncs Dice color with users Gesture Tool Color",
     "dependencies": [
         "bbepisTaleSpire-BepInExPack-5.4.10",
-	"brcoding-SetInjectionFlagPlugin-3.0.0"
+	      "brcoding-SetInjectionFlagPlugin-3.0.0"
     ]
 }
