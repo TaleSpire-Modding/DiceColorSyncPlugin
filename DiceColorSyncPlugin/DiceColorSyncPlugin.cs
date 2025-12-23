@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using BepInEx;
 using HarmonyLib;
+using ModdingTales;
 
-namespace DiceCallbackPlugin
+namespace DiceColorSyncPlugin
 {
 
-    [BepInPlugin(Guid, "HolloFoxes' Dice Color Sync Plug-In", Version)]
-    public class DiceCallbackPlugin : BaseUnityPlugin
+    [BepInPlugin(Guid, Name, Version)]
+    [BepInDependency(PluginUtilities.SetInjectionFlag.Guid)]
+    public class DiceColorSyncPlugin : BaseUnityPlugin
     {
         // constants
+        public const string Name = "Dice Color Sync Plug-In";
         public const string Guid = "org.hollofox.plugins.DiceColorSyncPlugin";
-        private const string Version = "1.0.0.0";
+        internal const string Version = "0.0.0.0";
 
         /// <summary>
         /// Awake plugin
@@ -20,6 +23,8 @@ namespace DiceCallbackPlugin
             Debug.Log("DiceColorSync Plug-in loaded");
             var harmony = new Harmony(Guid);
             harmony.PatchAll();
+
+            ModdingUtils.AddPluginToMenuList(this);
         }
     }
 }

@@ -1,51 +1,61 @@
 ﻿using HarmonyLib;
 using UnityEngine;
+using Dice;
+using Bounce.Unmanaged;
+using DataModel;
+using static Dice.DiceRollManager;
+using System.Collections.Generic;
 
-namespace DiceCallbackPlugin.Patches
+namespace DiceColorSyncPlugin.Patches
 {
-    [HarmonyPatch(typeof(Die), "OnPhotonInstantiate")]
-    public class DicePatch
-    { 
-        static void Postfix(PhotonMessageInfo info, ref Renderer ___dieRenderer)
+    [HarmonyPatch(typeof(DiceRollManager), nameof(DiceRollManager.OnOp), typeof(RegisterRollOp), typeof(MessageInfo))]
+    public class DiceRollManagerPatch
+    {
+        internal static Dictionary<RollId, ClientGuid> registeredDice = new Dictionary<RollId, ClientGuid>();
+        static void Prefix(RegisterRollOp op, MessageInfo msgInfo)
         {
-            if (BoardSessionManager.PhotonIdToClientGuid.TryGetValue(info.sender.ID, out var clientId))
-                if (TempClientColorManager.TryGetColor(clientId, out var color))
-                    ___dieRenderer.material.SetColor("_Color", color);
+            //Debug.Log($"RegisterRollOp intercepted for RollId: {op.RollId}, InitialDriveId ClientId: {op.InitialDriveId.ClientId}");
+            registeredDice[op.RollId] = op.InitialDriveId.ClientId;
         }
     }
 
     [HarmonyPatch(typeof(Die), "Init")]
     public class DicePatch2
     {
-        static void Postfix(ClientGuid clientId, ref Renderer ___dieRenderer)
+        internal static System.Reflection.BindingFlags flag = System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
+        static void Postfix(Die __instance, RollId rollId, Die.Mode mode, bool isGmOnly, MaterialPropertyBlock iconMpb, int faceIndexBase, ref Renderer ____dieRenderer)
         {
-            if (TempClientColorManager.TryGetColor(clientId, out var color))
-                ___dieRenderer.material.SetColor("_Color", color);
+            //Debug.Log($"Die Init intercepted for RollId: {rollId}");
+            if (!DiceRollManagerPatch.registeredDice.ContainsKey(rollId))
+                return;
+
+            if (TempClientColorManager.TryGetColor(DiceRollManagerPatch.registeredDice[rollId], out var color));
+                ____dieRenderer.material.SetColor("_Color", color);
         }
     }
 
     [HarmonyPatch(typeof(Die), "SetMaterial")]
     public class SetMaterialPatch
     {
-        static bool Prefix(ref Renderer ___dieRenderer, ref bool gmDie, Material ___normalMaterial, Material ___gmMaterial)
+        static bool Prefix(ref Renderer ____dieRenderer, ref bool gmDie, Material ____normalMaterial, Material ____gmMaterial)
         {
             if (gmDie)
             {
-                if (!((UnityEngine.Object)___dieRenderer.sharedMaterial != (UnityEngine.Object)___gmMaterial))
+                if (!((UnityEngine.Object)____dieRenderer.sharedMaterial != (UnityEngine.Object)____gmMaterial))
                     return false;
 
-                var color = ___dieRenderer.material.GetColor("_Color");
-                ___dieRenderer.sharedMaterial = ___gmMaterial;
-                ___dieRenderer.material.SetColor("_Color", color);
+                var color = ____dieRenderer.material.GetColor("_Color");
+                ____dieRenderer.sharedMaterial = ____gmMaterial;
+                ____dieRenderer.material.SetColor("_Color", color);
             }
             else
             {
-                if (!(___dieRenderer.sharedMaterial != ___normalMaterial))
+                if (!(____dieRenderer.sharedMaterial != ____normalMaterial))
                     return false;
 
-                var color = ___dieRenderer.material.GetColor("_Color");
-                ___dieRenderer.sharedMaterial = ___normalMaterial;
-                ___dieRenderer.material.SetColor("_Color", color);
+                var color = ____dieRenderer.material.GetColor("_Color");
+                ____dieRenderer.sharedMaterial = ____normalMaterial;
+                ____dieRenderer.material.SetColor("_Color", color);
             }
 
             return false;

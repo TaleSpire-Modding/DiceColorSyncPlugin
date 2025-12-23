@@ -4,8 +4,15 @@ This plugin changes the dice color to match the users gesture tool color.
 ## Usage
 Upon changing the color for your gesture tool, the color of your dice will change. If another player changes their gesture tool color the dice will match too. This is completely client side so it won't change for other people unless they have the plugin installed to.
 
+## Changelog
+- 1.1.0: Fix for BouncyRocks Dice overhaul. Upgraded to net 48. Upgraded pipelines
+- 1.0.1: Update README documentation. No code changes
+- 1.0.0: Initial release
+
 ## Shoutouts
-Shoutout to my Patreons on https://www.patreon.com/HolloFox recognising your
-mighty contribution to my caffeine addiciton:
-- John Fuller
-- [Tales Tavern](https://talestavern.com/) - MadWizard
+<!-- CONTRIBUTORS-START -->
+Shoutout to my past [Patreons](https://www.patreon.com/HolloFox) and [Discord](https://discord.gg/up6sWSjr) members, recognising your mighty support and contribution to my caffeine addiction:
+- [Demongund](https://www.twitch.tv/demongund) - Introduced me to TaleSpire
+- [Tales Tavern/MadWizard](https://talestavern.com/)
+- Joaqim Planstedt
+<!-- CONTRIBUTORS-END -->
