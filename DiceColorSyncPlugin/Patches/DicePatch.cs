@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 using Dice;
-using Bounce.Unmanaged;
 using DataModel;
 using static Dice.DiceRollManager;
 using System.Collections.Generic;
@@ -14,7 +13,6 @@ namespace DiceColorSyncPlugin.Patches
         internal static Dictionary<RollId, ClientGuid> registeredDice = new Dictionary<RollId, ClientGuid>();
         static void Prefix(RegisterRollOp op, MessageInfo msgInfo)
         {
-            //Debug.Log($"RegisterRollOp intercepted for RollId: {op.RollId}, InitialDriveId ClientId: {op.InitialDriveId.ClientId}");
             registeredDice[op.RollId] = op.InitialDriveId.ClientId;
         }
     }
@@ -29,7 +27,7 @@ namespace DiceColorSyncPlugin.Patches
             if (!DiceRollManagerPatch.registeredDice.ContainsKey(rollId))
                 return;
 
-            if (TempClientColorManager.TryGetColor(DiceRollManagerPatch.registeredDice[rollId], out var color));
+            if (TempClientColorManager.TryGetColor(DiceRollManagerPatch.registeredDice[rollId], out var color))
                 ____dieRenderer.material.SetColor("_Color", color);
         }
     }
@@ -61,6 +59,4 @@ namespace DiceColorSyncPlugin.Patches
             return false;
         }
     }
-
-
 }

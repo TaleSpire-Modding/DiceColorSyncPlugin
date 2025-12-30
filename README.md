@@ -5,6 +5,7 @@ This plugin changes the dice color to match the users gesture tool color.
 Upon changing the color for your gesture tool, the color of your dice will change. If another player changes their gesture tool color the dice will match too. This is completely client side so it won't change for other people unless they have the plugin installed to.
 
 ## Changelog
+- 1.1.1: DependencyUnityPlugins is now used and implement logic for unpatching
 - 1.1.0: Fix for BouncyRocks Dice overhaul. Upgraded to net 48. Upgraded pipelines
 - 1.0.1: Update README documentation. No code changes
 - 1.0.0: Initial release
