@@ -12,7 +12,7 @@ Upon changing the color for your gesture tool, the color of your dice will chang
 
 ## Shoutouts
 <!-- CONTRIBUTORS-START -->
-Shoutout to my past [Patreons](https://www.patreon.com/HolloFox) and [Discord](https://discord.gg/bxgZvBRVGf) members, recognising your mighty support, testing, feedback, and contribution to these projects:
+Shoutout to my past [Patreons](https://www.patreon.com/HolloFox) and [Discord](https://discord.gg/bxgZvBRVGf) members, recognising your mighty support, testing, feedback, and contribution to my talespire plugins and projects:
 - [Demongund](https://www.twitch.tv/demongund) - Introduced me to TaleSpire
 - [Tales Tavern/MadWizard](https://talestavern.com/)
 - Joaqim Planstedt
