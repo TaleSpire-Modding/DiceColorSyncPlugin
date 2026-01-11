@@ -1,10 +1,10 @@
 {
     "name": "Dice_Color_Sync",
-    "version_number": "1.1.1",
+    "version_number": "1.1.2",
     "website_url": "https://github.com/TaleSpire-Modding/DiceColorSyncPlugin",
     "description": "Syncs Dice color with users Gesture Tool Color",
     "dependencies": [
-        "bbepisTaleSpire-BepInExPack-5.4.10",
-	      "brcoding-SetInjectionFlagPlugin-3.3.4"
+        "bbepisTaleSpire-BepInExPack-5.4.22",
+	      "brcoding-SetInjectionFlagPlugin-3.4.1"
     ]
 }

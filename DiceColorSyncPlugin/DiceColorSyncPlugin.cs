@@ -8,7 +8,7 @@ namespace DiceColorSyncPlugin
 
     [BepInPlugin(Guid, Name, Version)]
     [BepInDependency(SetInjectionFlag.Guid)]
-    public class DiceColorSyncPlugin : DependencyUnityPlugin
+    public class DiceColorSyncPlugin : DependencyUnityPlugin<DiceColorSyncPlugin>
     {
         // constants
         public const string Name = "Dice Color Sync Plug-In";
@@ -29,7 +29,7 @@ namespace DiceColorSyncPlugin
 
         protected override void OnDestroyed()
         {
-            harmony.UnpatchSelf();
+            harmony?.UnpatchSelf();
         }
     }
 }
